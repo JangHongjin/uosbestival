@@ -1,0 +1,196 @@
+<div class="container" style="width:100%">
+    <div class="row" id="mainpage">
+        <div class="col-xs-12" style="z-position:20;text-align:center;height:40%;padding-top:10px">
+              <div id="sidebar_builder" class="col-xs-12" style="width:100%;height:500px;max-height:100%;overflow:hidden;"></div>
+        </div>
+        <div id='sidebar_container' class="col-xs-12" style='margin-top:20px;height:60%;text-align:center;overflow:scroll;padding-bottom:20px'>
+        </div>
+    </div>
+    <div class="row" id="footer" style="height:20px; margin-top:20px; background-color:#000000; text-align:center; color:#FFFFFF">
+        <p>likelion at uos</p>
+    </div>
+</div>    
+
+<section id="tomainposter" align="center">
+    <div id="content">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_total.jpg">
+    </div>
+</section>
+
+<section id="tototalposter" align="center">
+    <div id="content">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_totalmap.jpg">
+    </div>
+</section>
+
+<section id="bibimbab" align="center">
+    <div id="content">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bibimbab.png">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bibimbab2.jpg">
+    </div>
+</section>
+
+<section id="banilaco" align="center">
+    <div id="content">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_getitbeuty.jpg">
+    </div>
+</section>
+
+<section id="besttalk" align="center">
+    <div id="content">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_besttalk.jpg">
+    </div>
+</section>
+
+<section id="hanjoong" align="center">
+    <div id="content">
+        <img src="assets/event/hanjoong.jpg">
+    </div>
+</section>
+
+<section id="disco" align="center">
+    <div id="content">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_disco.jpg">
+    </div>
+</section>
+
+<section id="waterfestival" align="center">
+    <div id="content">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_waterfestival.jpg">
+        <img src="blob:https%3A//www.facebook.com/200dc43c-fcc5-4acb-81dd-d27d7e1628c7">
+    </div>
+</section>
+
+<section id="bestpunch" align="center">
+    <div id="content">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bestpunch.png">
+    </div>
+</section>
+
+<section id="foodfighter" align="center">
+    <div id="content">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_foodfighter.png">
+    </div>
+</section>
+
+<section id="bestduet" align="center">
+    <div id="content">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bestduet.png">
+    </div>
+</section>
+
+<section id="rockfestival" align="center">
+    <div id="content">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_rockfestival.jpg">
+    </div>
+</section>
+
+
+
+<script>
+    function createSidebarList(json){
+      return ("<div id=\"box\" class=\" col-xs-offset-2 col-xs-3\"><h3>"+ json.name +"</h3><span>"+ json.data +"</span><br><span>"+ json.content +"</span></div>");
+    };
+    
+    function bindLiToMarker($li, marker){
+      $li.on('click', function(){
+        handler.getMap().setZoom(18);
+        marker.setMap(handler.getMap()); //because clusterer removes map property from marker
+        marker.panTo();
+        google.maps.event.trigger(marker.getServiceObject(), 'click');
+      })
+    };
+    
+    function createSidebar(json_array){
+        _.each(json_array, function(json){
+            var $li = $( createSidebarList(json) );
+            $li.appendTo('#sidebar_container');
+            bindLiToMarker($li, json.marker);
+        });
+    };
+    
+    handler = Gmaps.build('Google');
+    handler.buildMap({ internal: {id: 'sidebar_builder'}}, function(){
+         var json_array = [
+            { lat: 37.583206, lng :127.059526, name: '비빔밥' , data: '5월 17일 화요일 12:30-', content: '비빔밥 선착순 500명!',
+                "picture": {
+                    "url": "assets/Templatic-map-icons/restaurants.png",
+                    "width":  32,
+                    "height": 32
+                },
+            //infowindow: "비빔밥" },
+            infowindow: "<a href=\"#bibimbab\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_bibimbab.png\"><br>비빔밥<br>포스터보기</a>"},
+            { lat:  37.583022, lng :127.058773, name: '이미지 컨설팅 + 바닐라코', data: '5월 17일 화요일 18:00-', content: '21세기관 국제회의장',
+                "picture": {
+                    "url": "assets/Templatic-map-icons/nightlife.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#banilaco\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_getitbeuty.jpg\"><br>이미지컨설팅<br>포스터보기</a>" },
+            { lat: 37.583006, lng :127.059526, name: '김풍 토크 콘서트', data: '5월 17일 화요일 18:00-', content: '토크듣고 경품도 받고',
+                "picture": {
+                    "url": "assets/Templatic-map-icons/concerts.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#besttalk\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_besttalk.jpg\"><br>김풍토크콘서트<br>포스터보기</a>" },
+            { lat: 37.583006, lng :127.059326, name: '한중가요제', data: '5월 20일 금요일 13:30-', content: '서울 지역예선!',
+                "picture": {
+                    "url": "assets/Templatic-map-icons/concerts.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#hanjoong\"><img src=\"assets/event/small_hanjoong.jpg\"><br>한중가요제<br>포스터보기</a>" },
+            { lat: 37.583759, lng :127.058844, name: 'Disco Pang!Pang!', data: '5월 18일-20일', content: '3000원에 디스코팡팡을!',
+                "picture": {
+                    "url": "assets/Templatic-map-icons/toys-store.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "><a href=\"#disco\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_disco.jpg\"><br>디스코팡팡<br포스터보기</a>" },
+            { lat: 37.583759, lng : 127.058644, name: '워터 페스티벌', data: '5월 18일-19일 12:00-17:00', content: '물 속을 첨벙첨벙',
+                "picture": {
+                    "url": "assets/Templatic-map-icons/swimming-pools.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#waterfestival\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_waterfestival.jpg\"><br>워터페스티벌<br>포스터보기</a>" },
+            { lat: 37.583559, lng :127.058844, name: '베스트 펀치', data: '5월 18일-20일', content: '시립대 원펀맨을 찾아서',
+                "picture": {
+                    "url": "assets/Templatic-map-icons/dance-clubs.png",
+                    "width":  32,
+                    "height": 32
+                },
+            infowindow: "<a href=\"#bestpunch\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_bestpunch.png\"><br>베스트펀치<br>포스터보기</a>" },
+            { lat: 37.582829, lng :127.059453, name: '푸드파이터', data: '5월 19일 목요일 16:00~', content: '불고기 버거 2개 빨리 먹기',
+                "picture": {
+                    "url": "assets/Templatic-map-icons/food.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#foodfighter\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_foodfighter.png\"><br>푸드파이터<br>포스터보기</a>" },
+            { lat: 37.582829, lng :127.059253, name: '듀엣가요제', data: '5월 20일 금요일', content: '1등은 30만원!',
+                "picture": {
+                    "url": "assets/Templatic-map-icons/karaoke.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#bestduet\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_bestduet.png\"><br>듀엣가요제<br>포스터보기</a>" },
+            { lat: 37.583716, lng :127.061652, name: '배봉 락 페스티벌' , data: '5월 18일 수요일', content: '초대가수 박보람',
+                "picture": {
+                    "url": "assets/Templatic-map-icons/festivals.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#rockfestival\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_rockfestival.jpg\"><br>락페스티벌<br>포스터보기22</a>" }
+        ];
+        var markers = handler.addMarkers(json_array);
+        
+        _.each(json_array, function(json, index){
+            json.marker = markers[index];
+        });
+        createSidebar(json_array);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+    });
+</script>

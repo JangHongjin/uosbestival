@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UOS Bstival</title>
+
+
+
+</head>
+<body>
+    <section id="top">
+    <div class="container" style='width:100%'>
+        <div class="row" style="height:80px; margin-top:20px; background-color:#000000; text-align:center; color:#FFFFFF">
+            <a id=y href="/index"><div id="" class="menu col-xs-3">전체</div></a>
+            <a id=y href="/event"><div id="" class="menu col-xs-3">행사</div></a>
+            <a id=y href="/booth"><div id="" class="menu col-xs-3" style="background-color:#FFFFFF; color:#CC9900">부스</div></a>
+            <a id=y href="/pub"><div id="" class="menu col-xs-3">주점</div></a>
+        </div>
+        
+    
+        
+        <!--<div class="col-xs-12" style="text-align:center">-->
+        <!--  <div id="multi_overlays" class="col-xs-12" style='width: 100%; height: 500px;'></div>-->
+        <!--</div>-->
+        
+        <div class="col-xs-12" style="text-align:center">
+            <div id="sidebar_builder" class="col-xs-12" style='width: 100%; height: 500px;'></div>
+        </div>
+        <div id='sidebar_container' class="col-xs-12" style='margin-top:20px; text-align:center'></div>
+            
+    </section>    
+          
+    <div class="row" style="height:20px; margin-top:20px; background-color:#000000; text-align:center; color:#FFFFFF">
+        <p>이건 우리의 작품</p>
+    </div>
+    
+    
+    <section id="tomainposter" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_total.jpg">
+        </div>
+    </section>
+    
+    <section id="tototalposter" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_totalmap.jpg">
+        </div>
+    </section>
+    
+    <section id="bibimbab" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bibimbab.png">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bibimbab2.jpg">
+        </div>
+    </section>
+    
+    <section id="banilaco" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_getitbeuty.jpg">
+        </div>
+    </section>
+    
+    <section id="besttalk" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_besttalk.jpg">
+        </div>
+    </section>
+
+    <section id="disco" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_disco.jpg">
+        </div>
+    </section>
+    
+    <section id="waterfestival" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_waterfestival.jpg">
+            <img src="blob:https%3A//www.facebook.com/200dc43c-fcc5-4acb-81dd-d27d7e1628c7">
+        </div>
+    </section>
+
+    <section id="bestpunch" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bestpunch.png">
+        </div>
+    </section>
+    
+    <section id="foodfighter" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_foodfighter.png">
+        </div>
+    </section>
+    
+    <section id="bestduet" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bestduet.png">
+        </div>
+    </section>
+    
+    <section id="rockfestival" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_rockfestival.jpg">
+        </div>
+    </section>
+
+    
+    <script>
+        function createSidebarLi(json){
+          return ("<img id=\"test\" style=\"width:400px\" src=\"assets/" + json.name + "\"VSPACE=\"1px\" HSPACE=\"13px\" alt=\"Not have Image\">&nbsp&nbsp&nbsp");
+        };
+        
+        function bindLiToMarker($li, marker){
+          $li.on('click', function(){
+            handler.getMap().setZoom(18);
+            marker.setMap(handler.getMap()); //because clusterer removes map property from marker
+            marker.panTo();
+            google.maps.event.trigger(marker.getServiceObject(), 'click');
+          })
+        };
+        
+        function createSidebar(json_array){
+          _.each(json_array, function(json){
+            var $li = $( createSidebarLi(json) );
+            $li.appendTo('#sidebar_container');
+            bindLiToMarker($li, json.marker);
+          });
+        };
+        
+        handler = Gmaps.build('Google');
+        handler.buildMap({ internal: {id: 'sidebar_builder'}}, function(){
+         var json_array = [
+            { lat: 37.584167, lng :127.059116, name: 'bibim.png', 
+                "picture": {
+                    "url": "assets/Templatic-map-icons/restaurants.png",
+                    "width":  32,
+                    "height": 32
+                },
+                //infowindow: "비빔밥" },
+                infowindow: "<a href=\"#bibimbab\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_bibimbab.png\"><br>비빔밥<br>포���터보기</a>"},
+            
+            { lat: 37.583716, lng :127.061652, name: 'rock.png', 
+                "picture": {
+                    "url": "assets/Templatic-map-icons/festivals.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#rockfestival\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_rockfestival.jpg\"><br>락페스티벌<br>포스터보기22</a>" }
+            
+         
+          ];
+          var markers = handler.addMarkers(json_array);
+      
+          _.each(json_array, function(json, index){
+            json.marker = markers[index];
+          });
+          createSidebar(json_array);
+          handler.bounds.extendWith(markers);
+          handler.fitMapToBounds();
+          
+        //   var polygons = handler.addPolygons( // center : lat: 37.584167, lng :127.059116
+        //         [
+                
+        //         [
+        //             {lat:  37.584267, lng: 127.058537}, {lat:  37.584120, lng: 127.058540}, 
+        //             { lat: 37.584111, lng: 127.059651}, { lat: 37.584224,  lng:127.059640},      
+        //         ]
+        //         ],
+        //         { strokeColor: '#FF0000'}
+        //     );
+            
+        //     handler.bounds.extendWith(polylines);
+        //     handler.bounds.extendWith(polygons);
+        //     handler.bounds.extendWith(circles);
+        //     handler.fitMapToBounds();
+            
+            
+            // var polygons = handler.addPolygons( // center : 37.584181, 127.060125
+            //     [
+                
+            //     [
+            //         {lat:  37.584214, lng: 127.059693}, {lat:  37.584120, lng: 127.059701}, 
+            //         { lat: 37.584154, lng: 127.060514}, { lat: 37.584230,  lng:127.060511},      
+            //     ]
+            //     ],
+            //     { strokeColor: '#FF0000'}
+            // );
+            
+            // handler.bounds.extendWith(polylines);
+            // handler.bounds.extendWith(polygons);
+            // handler.bounds.extendWith(circles);
+            // handler.fitMapToBounds();
+            
+            
+            var polygons = handler.addPolygons( // center :  37.584200, 127.060919
+                [
+                
+                [
+                    {lat:  37.584242, lng: 127.060541}, {lat:  37.584168, lng: 127.060557}, 
+                    { lat: 37.584177, lng: 127.061303}, { lat: 37.584245,  lng:127.061249},      
+                ]
+                ],
+                { strokeColor: '#FF0000'}
+            );
+            
+            handler.bounds.extendWith(polylines);
+            handler.bounds.extendWith(polygons);
+            handler.bounds.extendWith(circles);
+            handler.fitMapToBounds();
+          
+        });
+        
+        
+    </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<div class="container" style="width:100%;height:100%;">
+        
+    <div class="row" id="mainpage">
+        <div class="col-xs-12" style="z-position:20;text-align:center;height:40%;padding-top:10px">
+              <div id="sidebar_builder" class="col-xs-12" style='width:100%;height:300px;max-height:100%;overflow:hidden;'></div>
+        </div>
+        <div id='sidebar_container' class="col-xs-12" style='height:60%;margin-top:20px; text-align:center;overflow:scroll;padding-bottom:20px'></div>
+    </div>
+    
+    <div class="row" style="height:20px; margin-top:20px; background-color:#000000; text-align:center; color:#FFFFFF">
+        <p>likelion at uos</p>
+    </div>
+</div>    
+
+
+
+
+<script>
+    function createSidebarLi(json){
+        return ("<div id=\"booth2-box\" class=\" col-xs-offset-2 col-xs-3\"><h3>"+ json.name +"</h3><br><span>"+ json.content +"</span></div>");
+    //   return ("<img id=\"test\" style=\"width:400px\" src=\"assets/booths/23-38/" + json.name + "\"VSPACE=\"1px\" HSPACE=\"13px\" alt=\"Not have Image\">&nbsp&nbsp&nbsp");
+    };
+    
+    function bindLiToMarker($li, marker){
+      $li.on('click', function(){
+        handler.getMap().setZoom(18);
+        marker.setMap(handler.getMap()); //because clusterer removes map property from marker
+        marker.panTo();
+        google.maps.event.trigger(marker.getServiceObject(), 'click');
+      })
+    };
+    
+    function createSidebar(json_array){
+      _.each(json_array, function(json){
+        var $li = $( createSidebarLi(json) );
+        $li.appendTo('#sidebar_container');
+        bindLiToMarker($li, json.marker);
+      });
+    };
+    
+    handler = Gmaps.build('Google');
+    handler.buildMap({ internal: {id: 'sidebar_builder'}}, function(){
+     var json_array = [
+        { lat: 37.584181, lng :127.060125, name: 'Trash AL',content: "참여하는 즉흥공연", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "TrashAL"
+        },
+        { lat: 37.584181, lng :127.060125, name: '대학문화 교지편집위원회',content:"달고나,솜사탕,머랭쿠키,홍차", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "대학문화 교지편집위원회<br>달고나, 솜사탕, 머랭쿠키, 홍차<br>19일 ~ 20일"
+        },
+        { lat: 37.584181, lng :127.060125, name: '인엑터스',content:"꽃다발,압화 엽서", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "인액터스<br>꽃다발, 압화 엽서 판매<br>19일 ~ 20일"
+        },
+        { lat: 37.584181, lng :127.060125, name: '우동이네',content:"커피, 중고의류" ,
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "커피, 중고의류 판매"
+        },
+        { lat: 37.584181, lng :127.060125, name: '가격이 충열이네~', content :"피카츄 돈까스 & 소프트콘", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "피카츄돈까스, 소프트콘"
+        },
+        { lat: 37.584181, lng :127.060125, name: '주한미국대사 아메리칸센터',content: "미국관련 프로그램 홍보", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "미국관련프로그램 홍보<br>20일"
+        },
+        { lat: 37.584181, lng :127.060125, name: '그림누리',content:"일본 애니&음식 체험", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "일본 애니/음식 체험"
+        },
+        { lat: 37.584181, lng :127.060125, name: '모닝글놀이',content:"캘리그라피 활용 소품", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "캘그라피 활용 소품 판매"
+        },
+        { lat: 37.584181, lng :127.060125, name: 'Genesis the Best',content:"뻥스크림, 타투스티커", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "뻥스크림, 타투스티커"
+        },
+        { lat: 37.584181, lng :127.060125, name: '나눔 문화 만들기', content:"고체 향수 만들기",
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "고체향수만들기"
+        },
+        { lat: 37.584181, lng :127.060125, name: '시경연', 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "시경연"
+        },
+        { lat: 37.584181, lng :127.060125, name: '시원한 여름 노래 하늘소', content:"음료&조각 케이크", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "음료&조각케이크"
+        },
+        { lat: 37.584181, lng :127.060125, name: '오징어를 사왔는데 왜 먹지를 못하니',content:"버터구이 오징어", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "버터구이 오징어"
+        },
+        { lat: 37.584181, lng :127.060125, name: '그린팝', content :"직접 키운 채소를 이용한 음식, 꽃",
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "직접 키운 채소를 이용한 음식, 꽃 판매"
+        },
+        { lat: 37.584181, lng :127.060125, name: '마술신기하니?',content :"소통하는 마술 체험" ,
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "소통하는 미술체험"
+        },
+        { lat: 37.584181, lng :127.060125, name: '글다솜', content :"레터링 헤나 아트",
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "레터링 헤나 아트 판매"
+        },
+        { lat: 37.584181, lng :127.060125, name: 'WES\' more',content:"스모어,폴라로이드,다트,뽑기", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "스모어, 폴라로이드, 다트, 뽑기"
+        }
+        
+        
+     
+      ];
+      var markers = handler.addMarkers(json_array);
+  
+      _.each(json_array, function(json, index){
+        json.marker = markers[index];
+      });
+      createSidebar(json_array);
+    //   handler.bounds.extendWith(markers);
+    //   handler.fitMapToBounds();
+      
+      var polygons = handler.addPolygons( // center : 37.584181, 127.060125
+            [
+            
+            [
+                {lat:  37.584214, lng: 127.059693}, {lat:  37.584120, lng: 127.059701}, 
+                { lat: 37.584154, lng: 127.060514}, { lat: 37.584230,  lng:127.060511},      
+            ]
+            ],
+            { strokeColor: '#FF0000'}
+        );
+        
+        // handler.bounds.extendWith(polylines);
+        handler.bounds.extendWith(polygons);
+        // handler.bounds.extendWith(circles);
+        handler.fitMapToBounds();
+      handler.getMap().setZoom(18);
+    });
+    
+    
+</script>

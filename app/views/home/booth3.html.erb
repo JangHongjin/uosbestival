@@ -1,0 +1,114 @@
+ <div class="container" style="width:100%;height:100%;">
+    <div class="row" id="mainpage">
+        <div class="col-xs-12" style="z-position:20;text-align:center;height:40%;padding-top:10px">
+              <div id="sidebar_builder" class="col-xs-12" style='width:100%;height:300px;max-height:100%;overflow:hidden;'></div>
+        </div>
+        <div id='sidebar_container' class="col-xs-12" style='height:60%;margin-top:20px; text-align:center;overflow:scroll;padding-bottom:20px'></div>
+    </div>
+    
+    <div class="row" style="height:20px; margin-top:20px; background-color:#000000; text-align:center; color:#FFFFFF">
+        <p>likelion at uos</p>
+    </div>
+</div> 
+
+
+
+
+<script>
+    function createSidebarLi(json){
+    //   return ("<img id=\"test\" style=\"width:400px\" src=\"assets/booths/39-46/" + json.name + "\"VSPACE=\"1px\" HSPACE=\"13px\" alt=\"Not have Image\">&nbsp&nbsp&nbsp");
+    return ("<div id=\"booth3-box\" class=\" col-xs-offset-2 col-xs-3\"><h3>"+ json.name +"</h3><br><span>"+ json.content +"</span></div>");
+    };
+    
+    function bindLiToMarker($li, marker){
+      $li.on('click', function(){
+        handler.getMap().setZoom(18);
+        marker.setMap(handler.getMap()); //because clusterer removes map property from marker
+        marker.panTo();
+        google.maps.event.trigger(marker.getServiceObject(), 'click');
+      })
+    };
+    
+    function createSidebar(json_array){
+      _.each(json_array, function(json){
+        var $li = $( createSidebarLi(json) );
+        $li.appendTo('#sidebar_container');
+        bindLiToMarker($li, json.marker);
+      });
+    };
+    
+    handler = Gmaps.build('Google');
+    handler.buildMap({ internal: {id: 'sidebar_builder'}}, function(){
+     var json_array = [
+        { lat: 37.584200, lng :127.060919, name: '유메프', content:"초커&중고 의류",
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "초커 및 중고의류"
+        },
+        { lat: 37.584200, lng :127.060919, name: '꼬마 마녀의 정원',  content:"드라이 플라워",
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "드라이 플라워"
+        },
+        { lat: 37.584200, lng :127.060919, name: '산:들', content:"생화, 수제엽서 등", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "생화, 수제엽서 등"
+        },
+        { lat: 37.584200, lng :127.060919, name: 'YoungMade',content :"팔찌 및 키덜트 아이템", 
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "팔찌 및 키덜트 아이템"
+        },
+        { lat: 37.584200, lng :127.060919, name: 'UOS International Festival',content:"교환학생 상담, 세계음식 바자회" ,
+            "picture": {
+                "url": "assets/Templatic-map-icons/playgrounds.png",
+                "width":  32,
+                "height": 32
+            },
+            infowindow: "교환학생 상담 및 세계음식 바자회"
+        }
+        
+     
+      ];
+      var markers = handler.addMarkers(json_array);
+  
+      _.each(json_array, function(json, index){
+        json.marker = markers[index];
+      });
+      createSidebar(json_array);
+      handler.bounds.extendWith(markers);
+    //   handler.fitMapToBounds();
+      
+      var polygons = handler.addPolygons( // center :  37.584200, 127.060919
+            [
+            
+            [
+                {lat:  37.584242, lng: 127.060541}, {lat:  37.584168, lng: 127.060557}, 
+                { lat: 37.584177, lng: 127.061303}, { lat: 37.584245,  lng:127.061249},      
+            ]
+            ],
+            { strokeColor: '#FF0000'}
+        );
+        
+        // handler.bounds.extendWith(polylines);
+        // handler.bounds.extendWith(polygons);
+        // handler.bounds.extendWith(circles);
+        handler.fitMapToBounds();
+        handler.getMap().setZoom(18);
+    });
+    
+    
+</script>

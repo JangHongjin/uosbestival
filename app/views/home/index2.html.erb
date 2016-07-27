@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UOS Bstival</title>
+
+</head>
+<body>
+    <div class="container" style="width:100%;height:100%;">
+        <div class="row navbar">
+            <a id=y href="/index"><div id="index" class="menu col-xs-3">전체</div></a>
+            <a id=y href="/event"><div id="event" class="menu col-xs-3">행사</div></a>
+            <a id=y ><div id="booth" class="menu col-xs-3">부스</div></a>
+            <a id=y href="/pub"><div id="pub" class="menu col-xs-3">주점</div></a>
+        </div>
+            
+        <div class="row" id="boothnum">
+            <a href="/booth1"><div id="booth1" class = "col-xs-offset-6 col-xs-1">파트1</div></a>
+            <a href="/booth2"><div id="booth2" class = "col-xs-1">파트2</div></a>
+            <a href="/booth3"><div id="booth3" class = "col-xs-1">파트3</div></a>
+        </div>
+            
+        <div class="row" id="mainpage">
+            <div class="col-xs-12" style="z-position:20;text-align:center;height:40%;padding-top:10px">
+                  <div id="sidebar_builder" class="col-xs-12" style='width:100%;height:500px;max-height:100%;overflow:hidden;'></div>
+            </div>
+            <div id='sidebar_container' class="col-xs-12" style='height:50%;margin-top:20px; text-align:center;overflow:scroll;padding-bottom:20px'></div>
+        </div>
+        
+        <div class="row" style="height:20px; margin-top:20px; background-color:#000000; text-align:center; color:#FFFFFF">
+            <p>이건 우리의 작품</p>
+        </div>
+    </div>    
+
+ 
+    
+    <section id="tomainposter" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_total.jpg">
+        </div>
+    </section>
+    
+    <section id="tototalposter" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_totalmap.jpg">
+        </div>
+    </section>
+    
+    <section id="bibimbab" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bibimbab.png">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bibimbab2.jpg">
+        </div>
+    </section>
+    
+    <section id="banilaco" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_getitbeuty.jpg">
+        </div>
+    </section>
+    
+    <section id="besttalk" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_besttalk.jpg">
+        </div>
+    </section>
+            <section id="disco" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_disco.jpg">
+        </div>
+    </section>
+    
+    <section id="waterfestival" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_waterfestival.jpg">
+            <img src="blob:https%3A//www.facebook.com/200dc43c-fcc5-4acb-81dd-d27d7e1628c7">
+        </div>
+    </section>
+        <section id="bestpunch" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bestpunch.png">
+        </div>
+    </section>
+        
+    <section id="foodfighter" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_foodfighter.png">
+        </div>
+    </section>
+    
+    <section id="bestduet" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_bestduet.png">
+        </div>
+    </section>
+    
+    <section id="rockfestival" align="center">
+        <div id="content">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/middle_rockfestival.jpg">
+        </div>
+    </section>
+
+    
+    
+    <script>
+        
+        // 김태하 추가 부분ㅋㅋㅋㅋ 
+        /*document.getElementById("mainpage").style.height=(window.innerHeight-80)+"px";
+        
+        document.getElementById("booth").addEventListener("mouseover",function(){
+            document.getElementById("boothnum").style.display= "inline";
+        });
+        document.getElementById("booth").addEventListener("mouseout",function(){
+            document.getElementById("boothnum").style.display= "none";
+        });
+        
+        document.getElementById("boothnum").addEventListener("mouseover",function(){
+            document.getElementById("boothnum").style.display= "inline";
+        });
+        document.getElementById("boothnum").addEventListener("mouseout",function(){
+            document.getElementById("boothnum").style.display= "none";
+        });*/
+        
+        
+        // 김태하 추가 부분ㅋㅋㅋㅋ
+        
+        function createSidebarLi(json){
+          return ("<img style=\"width:400px\" src=\"assets/" + json.name + "\"VSPACE=\"1px\" HSPACE=\"13px\" alt=\"Not have Image\">&nbsp&nbsp&nbsp");
+        };
+        
+        function bindLiToMarker($li, marker){
+          $li.on('click', function(){
+            handler.getMap().setZoom(18);
+            marker.setMap(handler.getMap()); //because clusterer removes map property from marker
+            marker.panTo();
+            google.maps.event.trigger(marker.getServiceObject(), 'click');
+          })
+        };
+        
+        function createSidebar(json_array){
+          _.each(json_array, function(json){
+            var $li = $( createSidebarLi(json) );
+            $li.appendTo('#sidebar_container');
+            bindLiToMarker($li, json.marker);
+          });
+        };
+        
+        handler = Gmaps.build('Google');
+        handler.buildMap({ internal: {id: 'sidebar_builder'}}, function(){
+         var json_array = [
+            { lat: 37.583006, lng :127.059526, name: 'bibim.png', 
+                "picture": {
+                    "url": "assets/Templatic-map-icons/restaurants.png",
+                    "width":  32,
+                    "height": 32
+                },
+                //infowindow: "비빔밥" },
+                infowindow: "<a href=\"#bibimbab\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_bibimbab.png\"><br>비빔밥<br>포스터보기</a>"},
+            { lat:  37.583022, lng :127.058773, name: 'cunsult.png', 
+                "picture": {
+                    "url": "assets/Templatic-map-icons/nightlife.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#banilaco\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_getitbeuty.jpg\"><br>이미지컨설팅<br>포스터보기</a>" },
+            { lat: 37.583006, lng :127.059526, name: 'talk.png', 
+                "picture": {
+                    "url": "assets/Templatic-map-icons/concerts.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#besttalk\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_besttalk.jpg\"><br>김풍토크콘서트<br>포스터보기</a>" },
+            { lat: 37.583759, lng :127.058844, name: 'disco.png', 
+                "picture": {
+                    "url": "assets/Templatic-map-icons/toys-store.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "><a href=\"#disco\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_disco.jpg\"><br>디스코팡팡<br포스터보기</a>" },
+            { lat: 37.583759, lng : 127.058844, name: 'soccer.png', 
+                "picture": {
+                    "url": "assets/Templatic-map-icons/swimming-pools.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#waterfestival\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_waterfestival.jpg\"><br>워터페스티벌<br>포스터보기</a>" },
+            { lat: 37.583759, lng :127.058844, name: 'best.png', 
+                "picture": {
+                    "url": "assets/Templatic-map-icons/dance-clubs.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#bestpunch\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_bestpunch.png\"><br>베스트펀치<br>포스터보기</a>" },
+            { lat: 37.582829, lng :127.059253, name: 'food.png', 
+                "picture": {
+                    "url": "assets/Templatic-map-icons/food.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#foodfighter\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_foodfighter.png\"><br>푸드파이터<br>포스터보기</a>" },
+            { lat: 37.582829, lng :127.059253, name: 'duet.png', 
+                "picture": {
+                    "url": "assets/Templatic-map-icons/karaoke.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#bestduet\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_bestduet.png\"><br>듀엣가요제<br>포스터보기</a>" },
+            { lat: 37.583716, lng :127.061652, name: 'rock.png', 
+                "picture": {
+                    "url": "assets/Templatic-map-icons/festivals.png",
+                    "width":  32,
+                    "height": 32
+                },
+                infowindow: "<a href=\"#rockfestival\"><img src=\"https://s3.ap-northeast-2.amazonaws.com/uosbestival/uploads/small_rockfestival.jpg\"><br>락페스티벌<br>포스터보기22</a>" }
+            
+         
+          ];
+          var markers = handler.addMarkers(json_array);
+      
+          _.each(json_array, function(json, index){
+            json.marker = markers[index];
+          });
+          createSidebar(json_array);
+          handler.bounds.extendWith(markers);
+          handler.fitMapToBounds();
+          
+          
+          
+        });
+    </script>
+    
+    
+</body>
+</html>

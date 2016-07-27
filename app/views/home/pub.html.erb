@@ -1,0 +1,114 @@
+<div class="container" style="width:100%">
+    <div class="row" id="mainpage">
+        <div class="col-xs-12" style="z-position:20;text-align:center;height:40%;padding-top:10px">
+              <div id="sidebar_builder" class="col-xs-12" style="width:100%;height:300px;max-height:100%;overflow:hidden;"></div>
+        </div>
+        <div id='sidebar_container' class="col-xs-12" style='margin-top:20px;height:60%;text-align:center;overflow:scroll;padding-bottom:20px;margin-right:20px'></div>
+    </div>
+    <div class="row" id="footer" style="height:20px; margin-top:20px; background-color:#000000; text-align:center; color:#FFFFFF">
+        <p>likelion at uos</p>
+    </div>
+</div>
+
+
+<section id="ba" align="center">
+    <div style="margin-top: 20px">
+        <img src="assets/majors/ba/poster3.jpg">
+    </div>
+    <div style="margin-top: 20px">
+        <img src="assets/majors/ba/poster1.jpg">
+    </div>
+    <div style="margin-top: 20px">
+        <img src="assets/majors/ba/poster2.jpg">
+    </div>
+    
+</section>
+
+
+
+<section id="cos" align="center">
+    <div style="margin-top: 20px">
+        <img src="assets/majors/cos/CS5.jpg">
+    </div>
+    <div style="margin-top: 20px">
+        <img src="assets/majors/cos/CS2.jpg">
+    </div>
+    <div style="margin-top: 20px">
+        <img src="assets/majors/cos/CS3.jpg">
+    </div>
+    
+</section>
+
+
+
+<script>
+    function createSidebarLi(json){
+      // return ("<img style=\"width:200px\" src=\"assets/majors/" + json.name + "\"VSPACE=\"5px\" HSPACE=\"13px\" alt=\"Not have Image\">&nbsp&nbsp&nbsp");
+      return ("<div id=\"box\" class=\" col-xs-offset-0.5 col-xs-2\" style=\"margin:1%\"><h3>"+ json.name +"</h3></div>");
+    };
+    
+    function bindLiToMarker($li, marker){
+      $li.on('click', function(){
+        handler.getMap().setZoom(18);
+        marker.setMap(handler.getMap()); //because clusterer removes map property from marker
+        marker.panTo();
+        google.maps.event.trigger(marker.getServiceObject(), 'click');
+      })
+    };
+    
+    function createSidebar(json_array){
+      _.each(json_array, function(json){
+        var $li = $( createSidebarLi(json) );
+        $li.appendTo('#sidebar_container');
+        bindLiToMarker($li, json.marker);
+      });
+    };
+    
+    handler = Gmaps.build('Google');
+    handler.buildMap({ internal: {id: 'sidebar_builder'}}, function(){
+        
+    var json_array = [
+    { lat: 37.583940, lng :127.056153, name:'스포츠과학', infowindow: "스포츠과학부" },
+    { lat: 37.584104, lng: 127.056504, name: '경영', 
+      infowindow: "<a href=\"#ba\"><img src=\"assets/majors/ba/small_poster3.jpg\"><br>경영대 주점<br>포스터보기</a>" },
+    { lat: 37.583396, lng :127.056622, name: '수학', infowindow: "수학" },
+    {lat: 37.583125 ,lng: 127.057786, name: '사회복지' ,infowindow:"사회복지"},
+    {lat: 37.583318 ,lng: 127.057813, name: '공간정보' ,infowindow:"공간정보"},
+    {lat: 37.583289 ,lng: 127.058137, name: '교통' ,infowindow:"교통"},
+    {lat: 37.583696 ,lng: 127.058056, name: '통계' ,infowindow:"통계"},
+    {lat: 37.583682 ,lng: 127.058327, name: '토목' ,infowindow:"토목"},
+    {lat: 37.583890 ,lng: 127.058047, name: '건축' ,infowindow:"건축"},
+    {lat: 37.583868 ,lng: 127.058354, name: '국제관계' ,infowindow:"국제관계"},
+    {lat: 37.584018 ,lng: 127.058408, name: '경제' ,infowindow:"경제"},
+    {lat: 37.583175 ,lng: 127.058444, name: '도시행정' ,infowindow:"도시행정"},
+    {lat: 37.583167 ,lng: 127.058787, name: '세무' ,infowindow:"세무"},
+    {lat: 37.582638 ,lng: 127.058399, name: '도시사회' ,infowindow:"도시사회"},
+    {lat: 37.582588 ,lng: 127.058597, name: '환경원예' ,infowindow:"환경원예"},
+    {lat: 37.582824 ,lng: 127.060321, name: '전기전자컴퓨터' ,infowindow:"전기전자컴퓨터"},
+    {lat: 37.583231 ,lng: 127.060412, name: '인문' ,infowindow:"인문"},
+    {lat: 37.583155 ,lng: 127.060862, name: '컴퓨터과학',
+      infowindow:"<a href=\"#cos\"><img src=\"assets/majors/cos/small_CS5.jpg\"><br>컴과 주점<br>포스터보기</a>"},
+    {lat: 37.584702 ,lng: 127.060132, name: '생명' ,infowindow:"생명"},
+    {lat: 37.584437 ,lng: 127.059955, name: '도시공학' ,infowindow:"도시공학"},
+    {lat: 37.584403 ,lng: 127.059493, name: '조경' ,infowindow:"조경"},
+    {lat: 37.584522 ,lng: 127.058646, name: '환경공학' ,infowindow:"환경공학"},
+    {lat: 37.584539 ,lng: 127.058254, name: '화학공학' ,infowindow:"화학공학"},
+    {lat: 37.584973 ,lng: 127.058458, name: '물리' ,infowindow:"물리"},
+    {lat: 37.583429 ,lng: 127.059112, name: '행정' ,infowindow:"행정"}
+    ];
+   
+      var markers = handler.addMarkers(json_array);
+  
+      _.each(json_array, function(json, index){
+        json.marker = markers[index];
+      });
+      createSidebar(json_array);
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+      
+      
+      
+    });
+    
+    
+</script>
